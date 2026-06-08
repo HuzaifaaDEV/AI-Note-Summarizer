@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>LUXE — Define Your Style | Premium Fashion</title>
+<meta name="description" content="Discover LUXE – premium clothing for men and women. Shop curated collections, new arrivals, and exclusive styles."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0a0a0a;--white:#fafafa;--gray:#f4f2ee;--mid:#9a9590;
+  --gold:#c9a96e;--border:#e8e4de;--text:#1a1a1a;--sub:#6b6560;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--gray)}
+::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(250,250,250,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:6px;color:var(--black);text-decoration:none;cursor:pointer}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--sub);text-decoration:none;transition:color .2s;cursor:pointer}
+.nav-links a:hover{color:var(--gold)}
+.nav-actions{display:flex;align-items:center;gap:1rem}
+.nav-icon{background:none;border:none;cursor:pointer;font-size:18px;color:var(--sub);transition:color .2s;position:relative;padding:4px}
+.nav-icon:hover{color:var(--gold)}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#fff;width:16px;height:16px;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:600;pointer-events:none}
+
+/* HERO */
+.hero{height:100vh;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--black)}
+.hero-slides{position:absolute;inset:0}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.hero-slide.active{opacity:1}
+.hero-slide:nth-child(1){background:linear-gradient(135deg,#1a1a1a 0%,#2d2620 40%,#1a1512 100%)}
+.hero-slide:nth-child(2){background:linear-gradient(135deg,#0f1520 0%,#1e2530 40%,#0a0f18 100%)}
+.hero-slide:nth-child(3){background:linear-gradient(135deg,#1a1510 0%,#2d2015 40%,#160e08 100%)}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none}
+.hero-pattern{position:absolute;inset:0;opacity:.05;background-image:radial-gradient(circle,#c9a96e 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero-content{position:relative;z-index:2;text-align:center;color:#fff;animation:fadeUp .9s ease both}
+.hero-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,92px);font-weight:300;line-height:1.05;margin-bottom:1rem}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:3rem}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:#fff;padding:.9rem 2.5rem;border:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background .25s,transform .25s;font-family:'Inter',sans-serif}
+.btn-primary:hover{background:#b8924a;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#fff;padding:.9rem 2.5rem;border:1px solid rgba(255,255,255,.35);font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:border-color .25s,color .25s;font-family:'Inter',sans-serif}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-dots{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:2}
+.dot{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.3);cursor:pointer;border:none;transition:all .3s;padding:0}
+.dot.active{background:var(--gold);width:20px}
+.hero-scroll{position:absolute;bottom:2rem;right:2rem;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(255,255,255,.35);font-size:10px;letter-spacing:2px;text-transform:uppercase;animation:scrollBounce 2s ease-in-out infinite}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--gold),transparent)}
+
+/* SECTIONS */
+section{padding:6rem 2rem}
+.section-inner{max-width:1280px;margin:0 auto}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;display:block}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,46px);font-weight:300;line-height:1.2;color:var(--black)}
+
+/* COLLECTIONS */
+.collections-bg{background:var(--gray)}
+.collections-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;margin-top:3rem;background:var(--border)}
+.collection-card{background:var(--white);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .35s;position:relative;overflow:hidden}
+.collection-card::before{content:'';position:absolute;inset:0;background:var(--black);transform:translateY(101%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);z-index:0}
+.collection-card:hover::before{transform:translateY(0)}
+.collection-card .cc-inner{position:relative;z-index:1}
+.collection-card:hover .coll-name,.collection-card:hover .coll-count{color:#fff}
+.collection-card:hover .coll-icon{color:var(--gold)}
+.coll-icon{font-size:32px;margin-bottom:1rem;color:var(--gold);display:block;transition:color .3s}
+.coll-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:.25rem;color:var(--black);transition:color .3s}
+.coll-count{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);transition:color .3s}
+
+/* FILTER */
+.filter-bar{display:flex;gap:.6rem;flex-wrap:wrap;margin:2.5rem 0}
+.filter-btn{padding:.45rem 1.1rem;border:1px solid var(--border);background:transparent;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;color:var(--sub);font-family:'Inter',sans-serif}
+.filter-btn.active,.filter-btn:hover{background:var(--black);color:#fff;border-color:var(--black)}
+
+/* PRODUCTS */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.product-card{cursor:pointer;position:relative}
+.product-img{aspect-ratio:3/4;background:var(--gray);overflow:hidden;position:relative;margin-bottom:1rem}
+.product-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:56px;transition:transform .5s cubic-bezier(.25,.46,.45,.94);user-select:none}
+.product-card:hover .product-img-inner{transform:scale(1.06)}
+.product-actions{position:absolute;bottom:1rem;left:1rem;right:1rem;display:flex;gap:.5rem;opacity:0;transform:translateY(6px);transition:all .28s}
+.product-card:hover .product-actions{opacity:1;transform:translateY(0)}
+.btn-cart{flex:1;background:var(--black);color:#fff;border:none;padding:.65rem;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'Inter',sans-serif}
+.btn-cart:hover{background:var(--gold)}
+.btn-wish{background:#fff;border:none;width:40px;padding:.65rem;cursor:pointer;font-size:14px;transition:background .2s;line-height:1}
+.btn-wish:hover{background:var(--gold)}
+.product-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:.3rem .65rem;z-index:1}
+.product-name{font-size:13px;font-weight:500;margin-bottom:.3rem;color:var(--black)}
+.product-price{font-size:13px;color:var(--sub)}
+.price-original{text-decoration:line-through;margin-right:.4rem;color:var(--mid)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal-wrap{position:relative;width:100%;max-width:860px}
+.modal{background:var(--white);display:grid;grid-template-columns:1fr 1fr;max-height:88vh;overflow-y:auto;animation:fadeUp .3s ease}
+.modal-gallery{background:var(--gray);display:flex;flex-direction:column}
+.modal-main-img{flex:1;display:flex;align-items:center;justify-content:center;font-size:72px;min-height:280px;user-select:none}
+.modal-thumbs{display:flex;gap:1px;border-top:1px solid var(--border)}
+.modal-thumb{flex:1;height:56px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;background:var(--gray);transition:background .2s;border:none}
+.modal-thumb:hover,.modal-thumb.sel{background:var(--border)}
+.modal-info{padding:2rem}
+.modal-brand{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:.5rem;color:var(--black)}
+.modal-price{font-size:18px;font-weight:500;margin-bottom:1.5rem;color:var(--black)}
+.modal-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:.6rem;display:block}
+.size-grid{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.size-btn{padding:.45rem .85rem;border:1px solid var(--border);font-size:12px;cursor:pointer;background:transparent;transition:all .2s;font-family:'Inter',sans-serif}
+.size-btn:hover,.size-btn.sel{background:var(--black);color:#fff;border-color:var(--black)}
+.color-grid{display:flex;gap:.5rem;margin-bottom:1.75rem;flex-wrap:wrap}
+.color-dot{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s;outline:none}
+.color-dot.sel{border-color:var(--gold);transform:scale(1.18)}
+.btn-add-cart{width:100%;background:var(--black);color:#fff;padding:1rem;border:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;margin-bottom:.65rem;transition:background .22s;font-family:'Inter',sans-serif}
+.btn-add-cart:hover{background:var(--gold)}
+.btn-wish-modal{width:100%;background:transparent;color:var(--black);padding:.9rem;border:1px solid var(--border);font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:border-color .2s;font-family:'Inter',sans-serif}
+.btn-wish-modal:hover{border-color:var(--black)}
+.modal-close{position:absolute;top:-14px;right:-14px;background:var(--white);border:1px solid var(--border);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1;line-height:1}
+.modal-close:hover{background:var(--black);color:#fff;border-color:var(--black)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.about-visual{background:linear-gradient(160deg,#1a1a1a,#2d2620);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;overflow:hidden;user-select:none}
+.about-visual::after{content:'LUXE';position:absolute;bottom:1.5rem;right:1.5rem;font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:rgba(201,169,110,.25);letter-spacing:8px;pointer-events:none}
+.about-body p{font-size:14px;line-height:1.9;color:var(--sub);margin-bottom:1.1rem}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--gold)}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-top:.2rem}
+
+/* TESTIMONIALS */
+.testimonials-bg{background:var(--black)}
+.testimonials-bg .section-title{color:#fff}
+.tslider{margin-top:3rem;overflow:hidden}
+.ttrack{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+.titem{min-width:100%;padding:0}
+.t-stars{color:var(--gold);font-size:13px;margin-bottom:.85rem;letter-spacing:2px}
+.t-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.5vw,24px);font-weight:300;font-style:italic;color:#fff;line-height:1.65;margin-bottom:2rem;opacity:.9}
+.t-author{display:flex;align-items:center;gap:1rem}
+.t-avatar{width:46px;height:46px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;flex-shrink:0}
+.t-name{font-size:13px;font-weight:500;color:#fff}
+.t-tag{font-size:11px;color:var(--gold);letter-spacing:.5px;margin-top:.15rem}
+.slider-controls{display:flex;gap:.75rem;margin-top:2.5rem}
+.slider-btn{width:42px;height:42px;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.55);cursor:pointer;font-size:16px;transition:all .2s;line-height:1}
+.slider-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* NEWSLETTER */
+.newsletter-bg{background:var(--gray)}
+.nl-inner{text-align:center;max-width:500px;margin:0 auto}
+.nl-inner p{font-size:14px;color:var(--sub);margin:1rem 0 2rem;line-height:1.7}
+.email-form{display:flex;border:1px solid var(--border);background:var(--white);overflow:hidden}
+.email-input{flex:1;padding:.85rem 1.1rem;border:none;outline:none;font-family:'Inter',sans-serif;font-size:13px;background:transparent;color:var(--text);min-width:0}
+.email-input::placeholder{color:var(--mid)}
+.email-submit{background:var(--black);color:#fff;border:none;padding:.85rem 1.5rem;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:'Inter',sans-serif;flex-shrink:0}
+.email-submit:hover{background:var(--gold)}
+.email-note{font-size:11px;color:var(--mid);margin-top:.65rem}
+
+/* FOOTER */
+footer{background:var(--black);color:rgba(255,255,255,.5);padding:3rem 2rem}
+.footer-inner{max-width:1280px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;letter-spacing:6px;color:#fff;margin-bottom:.75rem}
+.footer-tagline{font-size:13px;line-height:1.7;max-width:220px}
+.footer-heading{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:1.1rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-links li a{font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;cursor:pointer}
+.footer-links li a:hover{color:var(--gold)}
+.footer-social{display:flex;gap:.6rem;margin-top:1.25rem}
+.social-btn{width:34px;height:34px;border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.45);background:none;line-height:1}
+.social-btn:hover{border-color:var(--gold);color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:.5rem}
+.footer-bottom-links{display:flex;gap:1.25rem}
+.footer-bottom-links a{font-size:11px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s;cursor:pointer}
+.footer-bottom-links a:hover{color:var(--gold)}
+.copyright{font-size:11px}
+
+/* CART SIDEBAR */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:2999;display:none}
+.cart-overlay.open{display:block}
+.cart-sidebar{position:fixed;right:0;top:0;height:100%;width:360px;max-width:100vw;background:var(--white);z-index:3000;transform:translateX(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column}
+.cart-sidebar.open{transform:translateX(0)}
+.cart-header{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.cart-title-t{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--black)}
+.cart-close-btn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--sub);transition:color .2s;line-height:1;padding:2px}
+.cart-close-btn:hover{color:var(--gold)}
+.cart-items-wrap{flex:1;overflow-y:auto;padding:.75rem 1rem}
+.cart-item{display:flex;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border)}
+.cart-item-img{width:64px;height:84px;background:var(--gray);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;user-select:none}
+.cart-item-info{flex:1;min-width:0}
+.ci-name{font-size:13px;font-weight:500;margin-bottom:.2rem;color:var(--black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-meta{font-size:11px;color:var(--mid);margin-bottom:.4rem}
+.ci-price{font-size:13px;color:var(--sub)}
+.ci-remove{background:none;border:none;cursor:pointer;color:var(--mid);font-size:11px;transition:color .2s;padding:.2rem 0;font-family:'Inter',sans-serif;text-decoration:underline}
+.ci-remove:hover{color:var(--black)}
+.cart-footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border);flex-shrink:0}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem}
+.ct-label{font-size:13px;color:var(--sub)}
+.ct-val{font-weight:600;font-size:16px;color:var(--black)}
+.btn-checkout{width:100%;background:var(--black);color:#fff;padding:.9rem;border:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-bottom:.6rem;font-family:'Inter',sans-serif}
+.btn-checkout:hover{background:var(--gold)}
+.btn-continue{width:100%;background:transparent;color:var(--sub);padding:.8rem;border:1px solid var(--border);font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color .2s}
+.btn-continue:hover{border-color:var(--black);color:var(--black)}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--mid)}
+.cart-empty-icon{font-size:36px;margin-bottom:.75rem}
+.cart-empty p{font-size:13px;margin-bottom:.35rem}
+.cart-empty small{font-size:11px}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--black);color:#fff;padding:.8rem 1.4rem;font-size:12px;letter-spacing:.5px;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.25,.46,.45,.94);z-index:9999;border-left:3px solid var(--gold);max-width:280px;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .modal{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:680px){
+  .nav-links{display:none}
+  .footer-top{grid-template-columns:1fr}
+  .email-form{flex-direction:column}
+  .email-submit{text-align:center}
+  .hero-btns{flex-direction:column;align-items:center}
+  .hero-scroll{display:none}
+  .modal-close{top:8px;right:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero" aria-label="LUXE Home">LUXE</a>
+    <ul class="nav-links" role="list">
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon" aria-label="Search" onclick="showToast('Search feature coming soon')">🔍</button>
+      <button class="nav-icon" aria-label="Wishlist" id="wish-btn" onclick="showToast('Wishlist: '+wishlist.length+' item(s)')">🤍</button>
+      <button class="nav-icon" id="cart-btn" aria-label="Open shopping cart" onclick="toggleCart()">
+        🛍
+        <span class="cart-badge" id="cart-count" aria-live="polite">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero" aria-label="Hero banner">
+  <div class="hero-slides" id="hero-slides" aria-hidden="true">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="hero-tag">New Collection 2026</span>
+    <h1 class="hero-title">Define Your<br><em>Style</em></h1>
+    <p class="hero-sub">Premium fashion for the modern individual</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollTo('shop')">Shop Now</button>
+      <button class="btn-outline" onclick="scrollTo('collections')">Explore Collection</button>
+    </div>
+  </div>
+  <div class="hero-dots" id="hero-dots" aria-label="Slide navigation"></div>
+  <div class="hero-scroll" aria-hidden="true"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="collections-bg" id="collections">
+  <div class="section-inner">
+    <span class="section-label fade-in">Explore</span>
+    <h2 class="section-title fade-in">Our Collections</h2>
+    <div class="collections-grid fade-in" id="collections-grid"></div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="section-inner">
+    <span class="section-label fade-in">Curated For You</span>
+    <h2 class="section-title fade-in">Latest Arrivals</h2>
+    <div class="filter-bar fade-in" id="filter-bar" role="group" aria-label="Filter products"></div>
+    <div class="product-grid" id="product-grid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid fade-in">
+      <div class="about-visual" aria-hidden="true">🌿</div>
+      <div class="about-body">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-title" style="margin-bottom:1.5rem">Crafted with<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Purpose</em></h2>
+        <p>LUXE was born from a singular obsession — to create clothing that speaks without words. Founded in 2016, we blend timeless silhouettes with contemporary design to craft pieces that transcend seasons.</p>
+        <p>Every garment is ethically made using sustainably sourced materials. We believe luxury should not come at the cost of our planet or its people.</p>
+        <p>From our atelier to your wardrobe, LUXE is a promise of quality, style, and conscious living.</p>
+        <div class="about-stats">
+          <div><div class="stat-num">150+</div><div class="stat-label">Styles</div></div>
+          <div><div class="stat-num">42</div><div class="stat-label">Countries</div></div>
+          <div><div class="stat-num">98%</div><div class="stat-label">Satisfaction</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-bg" id="testimonials">
+  <div class="section-inner">
+    <span class="section-label">Reviews</span>
+    <h2 class="section-title fade-in" style="color:#fff">What Our Clients Say</h2>
+    <div class="tslider"><div class="ttrack" id="ttrack"></div></div>
+    <div class="slider-controls">
+      <button class="slider-btn" onclick="moveT(-1)" aria-label="Previous review">&#8592;</button>
+      <button class="slider-btn" onclick="moveT(1)" aria-label="Next review">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-bg">
+  <div class="section-inner">
+    <div class="nl-inner fade-in">
+      <span class="section-label">Stay Connected</span>
+      <h2 class="section-title">Exclusive Access</h2>
+      <p>Be the first to discover new arrivals, private sales, and style inspiration curated just for you.</p>
+      <div class="email-form" role="form" aria-label="Newsletter signup">
+        <input class="email-input" type="email" id="nl-email" placeholder="Enter your email address" aria-label="Email address"/>
+        <button class="email-submit" onclick="handleNewsletter()">Subscribe</button>
+      </div>
+      <p class="email-note">No spam, ever. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">LUXE</div>
+        <p class="footer-tagline">Premium fashion crafted for those who appreciate the art of dressing well.</p>
+        <div class="footer-social">
+          <button class="social-btn" aria-label="Instagram" onclick="openLink('https://instagram.com')">📷</button>
+          <button class="social-btn" aria-label="Pinterest" onclick="openLink('https://pinterest.com')">📌</button>
+          <button class="social-btn" aria-label="Twitter/X" onclick="openLink('https://x.com')">🐦</button>
+          <button class="social-btn" aria-label="Facebook" onclick="openLink('https://facebook.com')">👍</button>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Shop</div>
+        <ul class="footer-links">
+          <li><a href="#collections">New Arrivals</a></li>
+          <li><a href="#shop">Women</a></li>
+          <li><a href="#shop">Men</a></li>
+          <li><a href="#shop">Sale</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a onclick="showToast('Careers page — coming soon')">Careers</a></li>
+          <li><a onclick="showToast('Press page — coming soon')">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Support</div>
+        <ul class="footer-links">
+          <li><a onclick="showToast('Contact form — coming soon')">Contact</a></li>
+          <li><a onclick="showToast('Free worldwide shipping on orders over $150')">Shipping</a></li>
+          <li><a onclick="showToast('30-day hassle-free returns')">Returns</a></li>
+          <li><a onclick="showToast('Privacy policy — coming soon')">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copyright">© 2026 LUXE. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a onclick="showToast('Terms of service — coming soon')">Terms</a>
+        <a onclick="showToast('Privacy policy — coming soon')">Privacy</a>
+        <a onclick="showToast('Cookie policy — coming soon')">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-label="Product detail" onclick="if(event.target===this)closeModal()">
+  <div class="modal-wrap">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close product modal">✕</button>
+    <div class="modal" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping cart">
+  <div class="cart-header">
+    <span class="cart-title-t">Your Cart</span>
+    <button class="cart-close-btn" onclick="toggleCart()" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items-wrap" id="cart-items"></div>
+  <div id="cart-footer-wrap"></div>
+</aside>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+var COLLECTIONS=[
+  {icon:'👗',name:'Women',count:'84 Styles',filter:'Women'},
+  {icon:'👔',name:'Men',count:'62 Styles',filter:'Men'},
+  {icon:'✨',name:'New Arrivals',count:'28 Styles',filter:'New'},
+  {icon:'🏷️',name:'Sale',count:'Up to 50% off',filter:'Sale'}
+];
+
+var PRODUCTS=[
+  {id:1,name:'Silk Drape Dress',cat:'Women',price:289,sale:null,emoji:'👗',badge:'New',colors:['#1a1a1a','#c9a96e','#8b6f5e'],sizes:['XS','S','M','L','XL']},
+  {id:2,name:'Tailored Blazer',cat:'Men',price:349,sale:null,emoji:'🧥',badge:null,colors:['#2d2620','#4a4040','#c9a96e'],sizes:['S','M','L','XL','XXL']},
+  {id:3,name:'Linen Wide Pants',cat:'Women',price:185,sale:129,emoji:'👖',badge:'Sale',colors:['#f4f2ee','#c9a96e','#8b6f5e'],sizes:['XS','S','M','L']},
+  {id:4,name:'Classic Polo Shirt',cat:'Men',price:129,sale:null,emoji:'👕',badge:null,colors:['#fff','#1a1a1a','#c9a96e'],sizes:['S','M','L','XL']},
+  {id:5,name:'Cashmere Sweater',cat:'Women',price:420,sale:null,emoji:'🧶',badge:'New',colors:['#c9a96e','#8b6f5e','#f4f2ee'],sizes:['XS','S','M','L','XL']},
+  {id:6,name:'Merino Wool Coat',cat:'Men',price:580,sale:null,emoji:'🥼',badge:'New',colors:['#1a1a1a','#2d2620','#4a4040'],sizes:['S','M','L','XL']},
+  {id:7,name:'Satin Mini Skirt',cat:'Women',price:165,sale:99,emoji:'👗',badge:'Sale',colors:['#1a1a1a','#c9a96e','#8b6f5e'],sizes:['XS','S','M','L']},
+  {id:8,name:'Oxford Button Shirt',cat:'Men',price:195,sale:null,emoji:'👔',badge:null,colors:['#fff','#c9a96e','#8b6f5e'],sizes:['S','M','L','XL','XXL']}
+];
+
+var TESTIMONIALS=[
+  {q:'LUXE has completely transformed how I approach dressing. Every piece feels like it was made specifically for me — the fit, the fabric, the finish are extraordinary.',name:'Amara K.',tag:'Verified Buyer · London',av:'AK'},
+  {q:'I have shopped luxury brands across the world, and LUXE consistently delivers quality that rivals houses three times the price. Simply extraordinary.',name:'James T.',tag:'Verified Buyer · New York',av:'JT'},
+  {q:'Sustainable fashion that never compromises on style. LUXE is the rare brand that genuinely lives up to its promises. My wardrobe has not been the same since.',name:'Priya M.',tag:'Verified Buyer · Dubai',av:'PM'},
+  {q:'The tailoring on my blazer is impeccable. I have received more compliments wearing LUXE in one week than from any other brand in years. Worth every penny.',name:'Sofia R.',tag:'Verified Buyer · Milan',av:'SR'}
+];
+
+// ── STATE ─────────────────────────────────────────────
+var cart=[], wishlist=[], filter='All', tIdx=0, hIdx=0;
+var selSizes={}, selColors={};
+
+// ── HELPERS ───────────────────────────────────────────
+function scrollTo(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+
+function openLink(url){
+  try{window.open(url,'_blank','noopener,noreferrer')}catch(e){showToast('Opening: '+url)}
+}
+
+var toastTimer=null;
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove('show')},3000);
+}
+
+function priceStr(p){return '$'+p.price}
+function displayPrice(p){
+  if(p.sale)return '<span class="price-original">$'+p.price+'</span>$'+p.sale;
+  return '$'+p.price;
+}
+function effectivePrice(p){return p.sale||p.price}
+
+// ── HERO ──────────────────────────────────────────────
+function initHero(){
+  var dc=document.getElementById('hero-dots');
+  for(var i=0;i<3;i++){
+    (function(idx){
+      var b=document.createElement('button');
+      b.className='dot'+(idx===0?' active':'');
+      b.setAttribute('aria-label','Go to slide '+(idx+1));
+      b.onclick=function(){goSlide(idx)};
+      dc.appendChild(b);
+    })(i);
+  }
+  setInterval(function(){goSlide((hIdx+1)%3)},5000);
+}
+function goSlide(i){
+  document.querySelectorAll('.hero-slide').forEach(function(s,idx){s.classList.toggle('active',idx===i)});
+  document.querySelectorAll('.dot').forEach(function(d,idx){d.classList.toggle('active',idx===i)});
+  hIdx=i;
+}
+
+// ── COLLECTIONS ───────────────────────────────────────
+function buildCollections(){
+  var g=document.getElementById('collections-grid');
+  COLLECTIONS.forEach(function(c){
+    var d=document.createElement('div');
+    d.className='collection-card';
+    d.setAttribute('role','button');
+    d.setAttribute('tabindex','0');
+    d.setAttribute('aria-label',c.name+' collection');
+    d.innerHTML='<div class="cc-inner"><span class="coll-icon" aria-hidden="true">'+c.icon+'</span><div class="coll-name">'+c.name+'</div><div class="coll-count">'+c.count+'</div></div>';
+    d.onclick=function(){setFilter(c.filter);scrollTo('shop')};
+    d.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){d.onclick()}};
+    g.appendChild(d);
+  });
+}
+
+// ── FILTERS ───────────────────────────────────────────
+var FILTERS=['All','Women','Men','New','Sale'];
+function buildFilters(){
+  var b=document.getElementById('filter-bar');
+  FILTERS.forEach(function(f){
+    var btn=document.createElement('button');
+    btn.className='filter-btn'+(f==='All'?' active':'');
+    btn.textContent=f==='New'?'New Arrivals':f;
+    btn.setAttribute('aria-pressed',f==='All'?'true':'false');
+    btn.onclick=function(){setFilter(f)};
+    b.appendChild(btn);
+  });
+}
+function setFilter(f){
+  filter=f;
+  document.querySelectorAll('.filter-btn').forEach(function(btn,i){
+    var match=FILTERS[i]===f;
+    btn.classList.toggle('active',match);
+    btn.setAttribute('aria-pressed',match?'true':'false');
+  });
+  renderProducts();
+}
+
+// ── PRODUCTS ──────────────────────────────────────────
+function filteredProducts(){
+  return PRODUCTS.filter(function(p){
+    if(filter==='All')return true;
+    if(filter==='New')return p.badge==='New';
+    if(filter==='Sale')return p.badge==='Sale';
+    return p.cat===filter;
+  });
+}
+function renderProducts(){
+  var g=document.getElementById('product-grid');
+  g.innerHTML='';
+  var list=filteredProducts();
+  list.forEach(function(p,i){
+    var inWish=wishlist.indexOf(p.id)!==-1;
+    var card=document.createElement('article');
+    card.className='product-card fade-in';
+    card.style.transitionDelay=(i*0.055)+'s';
+    card.setAttribute('aria-label',p.name+', '+priceStr(p));
+    card.innerHTML=
+      '<div class="product-img">'+(p.badge?'<span class="product-badge">'+p.badge+'</span>':'')+
+      '<div class="product-img-inner" aria-hidden="true">'+p.emoji+'</div>'+
+      '<div class="product-actions">'+
+        '<button class="btn-cart" onclick="quickAdd(event,'+p.id+')" aria-label="Add '+p.name+' to cart">Add to Cart</button>'+
+        '<button class="btn-wish" onclick="toggleWish(event,'+p.id+')" aria-label="'+(inWish?'Remove from':'Add to')+' wishlist">'+(inWish?'❤️':'🤍')+'</button>'+
+      '</div></div>'+
+      '<div class="product-name">'+p.name+'</div>'+
+      '<div class="product-price">'+displayPrice(p)+'</div>';
+    card.querySelector('.product-img-inner').onclick=function(){openModal(p)};
+    g.appendChild(card);
+  });
+  observeFadeIns();
+}
+
+// ── MODAL ─────────────────────────────────────────────
+function openModal(p){
+  selSizes[p.id]=selSizes[p.id]||p.sizes[0];
+  selColors[p.id]=selColors[p.id]||0;
+  renderModal(p);
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function renderModal(p){
+  var mb=document.getElementById('modal-body');
+  var inWish=wishlist.indexOf(p.id)!==-1;
+  var sizes=p.sizes.map(function(s){
+    return '<button class="size-btn'+(selSizes[p.id]===s?' sel':'')+'" onclick="pickSize('+p.id+',\''+s+'\',this)">'+s+'</button>';
+  }).join('');
+  var colors=p.colors.map(function(c,i){
+    return '<button class="color-dot'+(selColors[p.id]===i?' sel':'')+'" style="background:'+c+'" onclick="pickColor('+p.id+','+i+',this)" aria-label="Color '+(i+1)+'"></button>';
+  }).join('');
+  mb.innerHTML=
+    '<div class="modal-gallery">'+
+      '<div class="modal-main-img" aria-hidden="true">'+p.emoji+'</div>'+
+      '<div class="modal-thumbs">'+
+        '<button class="modal-thumb sel" aria-label="Main image">'+p.emoji+'</button>'+
+        '<button class="modal-thumb" aria-label="Image 2">🏷️</button>'+
+        '<button class="modal-thumb" aria-label="Image 3">📦</button>'+
+      '</div>'+
+    '</div>'+
+    '<div class="modal-info">'+
+      '<div class="modal-brand">LUXE Collection</div>'+
+      '<h3 class="modal-name">'+p.name+'</h3>'+
+      '<div class="modal-price">'+displayPrice(p)+'</div>'+
+      '<span class="modal-label">Select Size</span>'+
+      '<div class="size-grid">'+sizes+'</div>'+
+      '<span class="modal-label">Select Color</span>'+
+      '<div class="color-grid">'+colors+'</div>'+
+      '<button class="btn-add-cart" onclick="cartFromModal('+p.id+')">Add to Cart</button>'+
+      '<button class="btn-wish-modal" onclick="toggleWish(null,'+p.id+');renderModal(PRODUCTS.find(function(x){return x.id==='+p.id+'}))">'+
+        (inWish?'❤️ Remove from Wishlist':'🤍 Add to Wishlist')+'</button>'+
+    '</div>';
+  mb.querySelectorAll('.modal-thumb').forEach(function(btn){
+    btn.onclick=function(){mb.querySelectorAll('.modal-thumb').forEach(function(b){b.classList.remove('sel')});btn.classList.add('sel')};
+  });
+}
+function pickSize(id,s,el){
+  selSizes[id]=s;
+  el.closest('.size-grid').querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('sel')});
+  el.classList.add('sel');
+}
+function pickColor(id,i,el){
+  selColors[id]=i;
+  el.closest('.color-grid').querySelectorAll('.color-dot').forEach(function(b){b.classList.remove('sel')});
+  el.classList.add('sel');
+}
+function cartFromModal(id){
+  addToCart(id);
+  closeModal();
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── CART ─────────────────────────────────────────────
+function addToCart(id){
+  var p=PRODUCTS.find(function(x){return x.id===id});
+  if(!p)return;
+  var size=selSizes[id]||p.sizes[0];
+  var ex=cart.find(function(x){return x.id===id&&x.size===size});
+  if(ex){ex.qty++}else{cart.push({id:p.id,name:p.name,emoji:p.emoji,price:p.price,sale:p.sale,size:size,qty:1})}
+  renderCart();
+  showToast(p.name+' added to cart');
+}
+function quickAdd(e,id){e.stopPropagation();addToCart(id)}
+function removeFromCart(id,size){
+  cart=cart.filter(function(x){return !(x.id===id&&x.size===size)});
+  renderCart();
+}
+function toggleCart(){
+  var s=document.getElementById('cart-sidebar');
+  var o=document.getElementById('cart-overlay');
+  var open=s.classList.toggle('open');
+  o.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function renderCart(){
+  var count=cart.reduce(function(a,c){return a+c.qty},0);
+  document.getElementById('cart-count').textContent=count;
+  var itemsEl=document.getElementById('cart-items');
+  var footerEl=document.getElementById('cart-footer-wrap');
+  if(cart.length===0){
+    itemsEl.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🛍</div><p>Your cart is empty</p><small>Add some beautiful pieces</small></div>';
+    footerEl.innerHTML='';
+    return;
+  }
+  itemsEl.innerHTML=cart.map(function(item){
+    var ep=item.sale||item.price;
+    return '<div class="cart-item">'+
+      '<div class="cart-item-img" aria-hidden="true">'+item.emoji+'</div>'+
+      '<div class="cart-item-info">'+
+        '<div class="ci-name">'+item.name+'</div>'+
+        '<div class="ci-meta">Size: '+item.size+' &nbsp;·&nbsp; Qty: '+item.qty+'</div>'+
+        '<div class="ci-price">$'+(ep*item.qty)+'</div>'+
+        '<button class="ci-remove" onclick="removeFromCart('+item.id+',\''+item.size+'\')">Remove</button>'+
+      '</div></div>';
+  }).join('');
+  var total=cart.reduce(function(a,c){return a+(c.sale||c.price)*c.qty},0);
+  footerEl.innerHTML=
+    '<div class="cart-footer">'+
+      '<div class="cart-total-row"><span class="ct-label">Subtotal</span><span class="ct-val">$'+total+'</span></div>'+
+      '<button class="btn-checkout" onclick="showToast(\'Checkout integration coming soon!\')">Proceed to Checkout</button>'+
+      '<button class="btn-continue" onclick="toggleCart()">Continue Shopping</button>'+
+    '</div>';
+}
+
+// ── WISHLIST ──────────────────────────────────────────
+function toggleWish(e,id){
+  if(e)e.stopPropagation();
+  var idx=wishlist.indexOf(id);
+  if(idx===-1){wishlist.push(id)}else{wishlist.splice(idx,1)}
+  document.getElementById('wish-btn').textContent=wishlist.length?'❤️':'🤍';
+  renderProducts();
+}
+
+// ── TESTIMONIALS ──────────────────────────────────────
+function buildTestimonials(){
+  var track=document.getElementById('ttrack');
+  track.innerHTML=TESTIMONIALS.map(function(t){
+    return '<div class="titem">'+
+      '<div class="t-stars">★★★★★</div>'+
+      '<blockquote class="t-quote">"'+t.q+'"</blockquote>'+
+      '<div class="t-author">'+
+        '<div class="t-avatar" aria-hidden="true">'+t.av+'</div>'+
+        '<div><div class="t-name">'+t.name+'</div><div class="t-tag">'+t.tag+'</div></div>'+
+      '</div></div>';
+  }).join('');
+}
+function moveT(dir){
+  tIdx=(tIdx+dir+TESTIMONIALS.length)%TESTIMONIALS.length;
+  document.getElementById('ttrack').style.transform='translateX(-'+tIdx*100+'%)';
+}
+
+// ── NEWSLETTER ────────────────────────────────────────
+function handleNewsletter(){
+  var v=document.getElementById('nl-email').value.trim();
+  if(!v||!v.includes('@')||!v.includes('.')){showToast('Please enter a valid email address');return}
+  showToast('Thank you! You are now on the list.');
+  document.getElementById('nl-email').value='';
+}
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────
+function observeFadeIns(){
+  var els=document.querySelectorAll('.fade-in:not(.visible)');
+  if(!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('visible')});return}
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+  },{threshold:0.12});
+  els.forEach(function(el){obs.observe(el)});
+}
+
+// ── NAV SHADOW ON SCROLL ──────────────────────────────
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').style.boxShadow=window.scrollY>32?'0 2px 20px rgba(0,0,0,.07)':'none';
+},{ passive:true });
+
+// ── KEYBOARD ──────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    closeModal();
+    if(document.getElementById('cart-sidebar').classList.contains('open'))toggleCart();
+  }
+});
+
+// ── BOOT ──────────────────────────────────────────────
+initHero();
+buildCollections();
+buildFilters();
+buildTestimonials();
+renderProducts();
+renderCart();
+observeFadeIns();
+</script>
+</body>
+</html>
